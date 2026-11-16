@@ -2,13 +2,9 @@ default_target: jetson-agx-orin
 supported_targets:
   - jetson-agx-orin
 
-distro:
-  release: 2026
-  channel: next
-
 extensions:
   avocado-bsp-recomputer-mini-j5012-r39:
-    version: 2026.1.0
+    version: 0.1.0
     release: r0
     summary: Board support for the Seeed reComputer Mini J5012 on JetPack 7.2 (L4T R39.2.0), carrier extension on jetson-agx-orin
     description: |
@@ -19,9 +15,10 @@ extensions:
       config and partition layout inherit unchanged from the
       jetson-agx-orin flash profile; the carrier-specific files under
       stone/ are layered over it. The JetPack 6.x (L4T R36.5.2) variant
-      lives in bsp/recomputer-mini-j5012.
+      was not moved; see
+      https://github.com/avocado-linux/avocado-os/tree/41c9c39e65/bsp/recomputer-mini-j5012
     license: Apache-2.0
-    url: https://github.com/avocadolinux/avocado-os
+    url: https://github.com/avocado-linux/bsp-recomputer-mini-j5012-r39
     vendor: Avocado Linux <info@avocadolinux.org>
 
     types:
@@ -210,5 +207,5 @@ extensions:
 sdk:
   # The 2026 SDK image has no per-channel tag: docker.io/avocadolinux/sdk
   # carries `2026` and `2026-edge` (same digest) but no `2026-next`. The
-  # channel comes from distro.channel through the CLI, not from this tag.
-  image: docker.io/avocadolinux/sdk:{{ avocado.distro.release }}
+  # channel comes from the CLI, not from this tag.
+  image: docker.io/avocadolinux/sdk:{{ env.AVOCADO_DISTRO_RELEASE }}
