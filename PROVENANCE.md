@@ -451,5 +451,5 @@ tar -xjOf public_sources.tbz2 Linux_for_Tegra/source/kernel_src.tbz2 | sha256sum
 
 ```sh
 dtc --version
-git -C /var/tmp/claude-code/peridio/avmig/avocado-os show 41c9c39e65:bsp/recomputer-mini-j5012/stone/carrier-bsp/tegra234-j501x-0000+p3701-0005-recomputer-mini.dtb | sha256sum
+gh api repos/avocado-linux/avocado-os/git/blobs/18ef997ebfe2026c1b2460c6b0948dc68a77b740 --jq .content | base64 -d | sha256sum
 ```
