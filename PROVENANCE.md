@@ -7,7 +7,7 @@ recorded here; a different result means the input has drifted. The JetPack 7.2
 through the GitHub API at a fixed commit, never from a local checkout on another
 branch.
 
-This extension is a copy of `bsp/recomputer-mini-j5012` (JetPack 6.x, L4T
+This extension is a copy of https://github.com/avocado-linux/avocado-os/tree/41c9c39e65/bsp/recomputer-mini-j5012 (JetPack 6.x, L4T
 R36.5.2), retargeted to the 2026 line. Sections under "R39.2.0 inputs" are
 current. Sections under "Superseded R36.5.x inputs" are kept only where a file
 in this extension still depends on them, and each says so.
@@ -206,7 +206,7 @@ git -C "$META_AVOCADO" rev-parse origin/wrynose:meta-avocado-nvidia/stone/tegra/
   from `systemd-getty-generator`.
 
 ```sh
-find bsp/recomputer-mini-j5012-r39/overlay -printf '%y %m %p\n'
+find overlay -printf '%y %m %p\n'
 ```
 
 ## Carrier files
@@ -228,7 +228,7 @@ r36.5.0 (`f9a68317fbe3d276efc25b14b8b72339a1cc5d5c`) and r39.2.0.
 # upstream sha256, per Seeed path in the table
 gh api -H 'Accept: application/vnd.github.raw' 'repos/Seeed-Studio/Linux_for_Tegra/contents/<Seeed path>?ref=df17ed28201645fcaeb6c8e6fb82a0b4592faefb' | sha256sum
 # committed sha256
-sha256sum bsp/recomputer-mini-j5012-r39/stone/carrier-bsp/<committed file>
+sha256sum stone/carrier-bsp/<committed file>
 ```
 
 ### MB2 BCT misc override (authored, carried over unchanged)
@@ -243,7 +243,7 @@ sha256sum bsp/recomputer-mini-j5012-r39/stone/carrier-bsp/<committed file>
   at r39.2.0.
 
 ```sh
-sha256sum bsp/recomputer-mini-j5012-r39/stone/carrier-bsp/tegra234-mb2-bct-misc-p3701-0000-seeed.dts
+sha256sum stone/carrier-bsp/tegra234-mb2-bct-misc-p3701-0000-seeed.dts
 gh api -H 'Accept: application/vnd.github.raw' 'repos/Seeed-Studio/Linux_for_Tegra/contents/bootloader/tegra234-mb2-bct-common.dtsi?ref=df17ed28201645fcaeb6c8e6fb82a0b4592faefb' | grep -n cvb_eeprom_read_size
 ```
 
@@ -304,7 +304,7 @@ is `07d830c4...00953d`.
 ```sh
 git -C "$META_TEGRA" show 727633de:recipes-bsp/tegra-sources/tegra-sources-39.2.0.inc | grep sha256sum
 git -C "$META_TEGRA" show 727633de:classes-recipe/tegra-devicetree.bbclass | grep -n 'DT_INCLUDE:tegra234\|DTC_PPFLAGS'
-bash bsp/recomputer-mini-j5012-r39/dtb/build-dtb.sh --verify
+bash dtb/build-dtb.sh --verify
 ```
 
 New DTB: `stone/carrier-bsp/tegra234-j501x-0000+p3701-0005-recomputer-mini.dtb`,
@@ -312,8 +312,8 @@ New DTB: `stone/carrier-bsp/tegra234-j501x-0000+p3701-0005-recomputer-mini.dtb`,
 `c315aeabc824af5a4b63759be8b1ebdfdcdb7c079c7f3e81bf3849f8e2b57deb`.
 
 ```sh
-sha256sum bsp/recomputer-mini-j5012-r39/stone/carrier-bsp/tegra234-j501x-0000+p3701-0005-recomputer-mini.dtb
-dtc -I dtb -O dts bsp/recomputer-mini-j5012-r39/stone/carrier-bsp/tegra234-j501x-0000+p3701-0005-recomputer-mini.dtb | grep -c nvidia,tegra234
+sha256sum stone/carrier-bsp/tegra234-j501x-0000+p3701-0005-recomputer-mini.dtb
+dtc -I dtb -O dts stone/carrier-bsp/tegra234-j501x-0000+p3701-0005-recomputer-mini.dtb | grep -c nvidia,tegra234
 ```
 
 The second command prints `168`. Three of the four Seeed DTS files are
@@ -380,7 +380,7 @@ dtc -I dtb -O dts -s <dtb> > <out>.dts
 
 ## Superseded R36.5.x inputs
 
-Inherited from `bsp/recomputer-mini-j5012`. Nothing below is an input to the
+Inherited from https://github.com/avocado-linux/avocado-os/tree/41c9c39e65/bsp/recomputer-mini-j5012. Nothing below is an input to the
 R39.2.0 extension; the DTB build no longer reads any of it.
 
 ### Seeed carrier sources (r36.5.0), superseded
@@ -399,7 +399,7 @@ R39.2.0 extension; the DTB build no longer reads any of it.
 
 ```sh
 gh api repos/Seeed-Studio/Linux_for_Tegra/commits/r36.5.0 --jq .sha
-grep -n 'SEEED_FILES=' -A4 bsp/recomputer-mini-j5012-r39/dtb/build-dtb.sh
+grep -n 'SEEED_FILES=' -A4 dtb/build-dtb.sh
 ```
 
 ### The shipped board image (context, not a pin)
@@ -446,10 +446,10 @@ tar -xjOf public_sources.tbz2 Linux_for_Tegra/source/kernel_src.tbz2 | sha256sum
 ### Device-tree compiler and the R36.5.2 DTB
 
 - `DTC v1.8.1` (`dtc --version`).
-- R36.5.2 DTB output sha256 (enforced by `dtb/build-dtb.sh --verify` of `bsp/recomputer-mini-j5012`):
+- R36.5.2 DTB output sha256 (enforced by `dtb/build-dtb.sh --verify` of https://github.com/avocado-linux/avocado-os/tree/41c9c39e65/bsp/recomputer-mini-j5012):
   `07d830c48c1a697d7e0baa05e8f9ea9d32de64dc7b56027721f4474bc800953d`.
 
 ```sh
 dtc --version
-sha256sum bsp/recomputer-mini-j5012/stone/carrier-bsp/tegra234-j501x-0000+p3701-0005-recomputer-mini.dtb
+gh api repos/avocado-linux/avocado-os/git/blobs/18ef997ebfe2026c1b2460c6b0948dc68a77b740 --jq .content | base64 -d | sha256sum
 ```
